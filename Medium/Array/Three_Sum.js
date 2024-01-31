@@ -1,9 +1,12 @@
+console.log(threeSumHashMap([-1, 0, 1, 2, -1, -4], 0));
+
 // Brute Force Solution
 function threeSumBruteForce(nums, target) {
   /**
    * Brute-force solution to find three numbers in the array
    * that add up to the given target.
    * Get all unique sets available in an array form
+   * We are using "Some" and "Every" array methods
    * Time Complexity: O(n^3)
    * Space Complexity: O(1)
    */
@@ -41,7 +44,8 @@ function threeSumHashMap(nums, target) {
    * Taking two sum as a reference for this solution
    * Here first with i - we are keeping track of remaining sum
    * Then with j - we check if the last remainder value is in the stored set
-   *
+   * We epmty "let storedValues = {}" on each new iteration of i
+   * ... so that same values aren't repeated when math is applied
    * Here we use set to store values and check for unique identifiers after
    *  ...converting them to strings
    */
@@ -71,4 +75,54 @@ function threeSumHashMap(nums, target) {
   return resultArray;
 }
 
-console.log(threeSumHashMap([-1, 0, 1, 2, -1, -4], 0));
+// Two Pointer Optimised Method
+function threeSumTwoPointer(nums, target) {
+  /**
+   * Two Pointer solution to find three numbers in the array
+   * that add up to the given target.
+   *
+   * Time Complexity: O(n)
+   * Space Complexity: O(n)
+   *
+   * Here we handle three pointers in a sorted array
+   * Since array is already sorted, no need to create a set for uniqueness
+   */
+
+  let resultArray = [];
+  nums.sort((a, b) => a - b); // Sort the input array
+
+  for (let i = 0; i < nums.length - 2; i++) {
+    // Skip duplicates for the first element
+    if (i > 0 && nums[i] === nums[i - 1]) {
+      continue;
+    }
+
+    let left = i + 1;
+    let right = nums.length - 1;
+
+    while (left < right) {
+      let sum = nums[i] + nums[left] + nums[right];
+
+      if (sum === target) {
+        resultArray.push([nums[i], nums[left], nums[right]]);
+
+        // Skip duplicates for left and right pointers
+        while (left < right && nums[left] === nums[left + 1]) {
+          left++;
+        }
+        while (left < right && nums[right] === nums[right - 1]) {
+          right--;
+        }
+
+        left++;
+        right--;
+      } else if (sum < target) {
+        left++;
+      } else {
+        right--;
+      }
+    }
+  }
+
+  return resultArray;
+}
