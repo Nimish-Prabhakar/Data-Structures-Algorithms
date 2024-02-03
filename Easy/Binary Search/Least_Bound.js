@@ -11,37 +11,39 @@ function leastBoundIterative(arr, target) {
 
   let left = 0;
   let right = length - 1;
-
-  let middle = Math.floor((left + right) / 2);
+  let answer = length;
 
   while (left <= right) {
-    if (arr[middle] === target) {
-      return middle;
-    } else if (arr[middle] < target) {
-      left = middle + 1;
-    } else {
+    let middle = Math.floor((left + right) / 2);
+    if (arr[middle] >= target) {
+      answer = middle;
       right = middle - 1;
+    } else {
+      left = middle + 1;
     }
   }
 
-  return middle - 1;
+  return answer;
 }
 
 // Recursive Approach
-function leastBoundRecursive(arr, target, left = 0, right = arr.length - 1) {
-  if (left > right) {
-    return -1;
+function leastBoundRecursive(
+  arr,
+  target,
+  left = 0,
+  right = arr.length - 1,
+  answer = arr.length
+) {
+  if (left <= right) {
+    let middle = Math.floor((left + right) / 2);
+
+    if (arr[middle] >= target) {
+      answer = middle;
+      return leastBoundRecursive(arr, target, left, middle - 1, answer);
+    } else {
+      return leastBoundRecursive(arr, target, middle + 1, right, answer);
+    }
   }
 
-  let middle = Math.floor((left + right) / 2);
-
-  if (arr[middle] === target) {
-    return middle;
-  } else if (arr[middle] < target) {
-    left = middle + 1;
-    return leastBoundRecursive(arr, target, left, right);
-  } else {
-    right = middle - 1;
-    return leastBoundRecursive(arr, target, left, right);
-  }
+  return answer;
 }
