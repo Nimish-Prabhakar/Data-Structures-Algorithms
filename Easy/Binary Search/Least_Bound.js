@@ -2,8 +2,16 @@ console.log(leastBoundIterative([1, 2, 3, 4, 5, 6, 8, 8, 9, 11, 12], 7));
 
 console.log(leastBoundRecursive([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12], 11));
 
-// Least Bound is the samllest index greater or equal to target
+// Least / Lower Bound is the samllest index greater or equal to target
 // smallest arr[i] >= target
+
+// Question - Search Insert Position
+// Find the index where an element needs to be added in a sorted array
+// [1,2,5,9,13] , 7 -- this will go before 9, i.e. , at index of 9
+// This problem is in a way asking for lower bound
+
+// Question - Implement floor and ceil
+// Math.floor() and Math.ceil() -- both are examples for lower / upper bound in BS
 
 // Iterative Approach
 function leastBoundIterative(arr, target) {

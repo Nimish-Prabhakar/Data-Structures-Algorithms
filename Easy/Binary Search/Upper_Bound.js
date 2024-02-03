@@ -5,6 +5,14 @@ console.log(upperBoundIterative([1, 2, 5, 9, 11, 13, 15, 23, 41, 77], 3));
 // Upper Bound is the highest index smaller or equal to target
 // smallest arr[i] <= target
 
+// Question - Search Insert Position
+// Find the index where an element needs to be added in a sorted array
+// [1,2,5,9,13] , 7 -- this will go before 9, i.e. , at index of 9
+// This problem is in a way asking for lower bound
+
+// Question - Implement floor and ceil
+// Math.floor() and Math.ceil() -- both are examples for lower / upper bound in BS
+
 // Iterative Approach
 function upperBoundIterative(arr, target) {
   let length = arr.length;
